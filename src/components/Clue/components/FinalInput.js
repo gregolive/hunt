@@ -40,7 +40,7 @@ const AnswerInput = () => {
   
     const input = Object.values(inputs).reduce((str, i) => str + i, '');
 
-    if (input === answer) {
+    if (input.toLowerCase() === answer) {
       setComplete(true);
       await new Promise(resolve => setTimeout(resolve, 1000));
       navigate('/winner');

@@ -55,7 +55,7 @@ const ScrambledWord = ({ answer, hint, target }) => {
   const handleSubmit = (form) => {
     const input = Array.from(form).reduce((str, i) => str + i.value, '');
 
-    if (input === answer) {
+    if (input.toLowerCase() === answer) {
       setComplete(true)
       return;
     }

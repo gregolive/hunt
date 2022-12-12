@@ -11,7 +11,7 @@ body {
 .App {
   text-align: center;
   height: 100vh;
-  padding: 2em;
+  padding: 2em 0.5em;
   
   .Motion {
     display: flex;
@@ -35,7 +35,7 @@ body {
   }
 
   p {
-    font-size: 1.6em;
+    font-size: 1.8em;
   }
 
   button {
@@ -116,9 +116,10 @@ body {
   .ScrambledWord {
     display: grid;
     grid-template-columns: 1fr auto;
-    padding-bottom: 1em;
+    padding: 0 0.5em 1em 0.5em;
 
     p {
+      font-size: 1.6em;
       margin: 0.5em 0;
 
       &:first-of-type {
@@ -216,6 +217,7 @@ body {
 
   .Prize video {
     width: 100%;
+    padding: 0 1em;
   }
 }
 
