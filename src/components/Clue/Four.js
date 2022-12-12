@@ -16,6 +16,7 @@ const Four = () => {
       hint={renderHint()}
       answer='03'
       nextClue='/5'
+      className='Four'
     />
   );
 };

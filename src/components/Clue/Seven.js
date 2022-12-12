@@ -15,10 +15,15 @@ const Seven = () => {
           <li>Galway Girl</li>
           <li>Wake Me Up</li>
           <li>Perfect</li>
-          <li>I'm a Mess</li>
+          <li>Castle on the Hill</li>
           <li>Overpass Graffiti</li>
           <li>The A Team</li>
         </ol>
+
+        <p>
+          <span>_ O _ _ _ _</span>
+          <span>_ _ _ N</span>
+        </p>
       </>
     );
   };
@@ -29,6 +34,7 @@ const Seven = () => {
       hint={renderHint()}
       answer='20'
       nextClue='/8'
+      className='Seven'
     />
   );
 };

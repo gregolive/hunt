@@ -6,14 +6,20 @@ const ClueBase = ({
   hint,
   answer,
   nextClue,
+  className = '',
   final = false
 }) => {
 
-  return (
-    <div>
-      <h1>{title}</h1>
+  const classNames = (className.length > 0) ? 'Details ' + className : 'Details';
 
-      {hint}
+  return (
+    <>
+      <div className={classNames}>
+        <h1>{title}</h1>
+
+        {hint}
+      </div>
+      
 
       {final ?
         <FinalInput />
@@ -23,7 +29,7 @@ const ClueBase = ({
           nextClue={nextClue}
         />
       }
-    </div>
+    </>
   );
 };
 

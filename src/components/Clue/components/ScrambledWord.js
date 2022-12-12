@@ -1,12 +1,14 @@
 import { useState, useEffect, useMemo } from 'react';
 
-const ScrambledWord = ({ answer, hint }) => {
+const ScrambledWord = ({ answer, hint, target }) => {
 
-  const [inputs, setInputs] = useState(() => {
+  const initialInputs = () => {
     const i = {};
     [...Array(answer.length).keys()].forEach((a) => { i[a] = '' })
     return i;
-  });
+  };
+
+  const [inputs, setInputs] = useState(() => initialInputs());
 
   useEffect(() => {
     const inputString = Object.values(inputs).reduce((str, i) => str + i, '');
@@ -40,16 +42,18 @@ const ScrambledWord = ({ answer, hint }) => {
 
     if (input.length <= 0) return;
 
-    if (input.length <= 0 || ind + 1 >= answer.length) return;
-  
     const form = e.target.form;
+
+    if (ind + 1 >= answer.length) {
+      handleSubmit(form);
+      return;
+    }
+  
     form[ind + 1].focus();
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  
-    const input = inputs[0] + inputs[1];
+  const handleSubmit = (form) => {
+    const input = Array.from(form).reduce((str, i) => str + i.value, '');
 
     if (input === answer) {
       setComplete(true)
@@ -57,6 +61,8 @@ const ScrambledWord = ({ answer, hint }) => {
     }
 
     setError(true);
+    setInputs(initialInputs());
+    form[0].focus();
   };
 
   return (
@@ -66,18 +72,19 @@ const ScrambledWord = ({ answer, hint }) => {
       <p>{scrambledWord}</p>
 
       <form
-        className={(error) ? 'Error' : ''}
-        onSubmit={handleSubmit}
+        className={(error) ? 'Error' : null}
         noValidate
       >
         {Object.values(inputs).map((i, ind) =>
           <input
             key={answer+ind}
+            className={(ind === target) ? 'Target' : null}
             type='text'
             value={i}
             onChange={(e) => handleChange(e, ind)}
             pattern='[a-zA-Z]'
             maxLength='1'
+            disabled={complete}
             required
           />
         )}

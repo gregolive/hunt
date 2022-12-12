@@ -1,11 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Congrats from './Congrats';
 
 const AnswerInput = () => {
 
   const navigate = useNavigate();
 
   const answer = 'concert';
+
+  const initialInputs = () => {
+    const i = {};
+    [...Array(answer.length).keys()].forEach((a) => { i[a] = '' })
+    return i;
+  };
 
   const [inputs, setInputs] = useState(() => {
     const i = {};
@@ -14,6 +21,7 @@ const AnswerInput = () => {
   });
 
   const [error, setError] = useState(false);
+  const [complete, setComplete] = useState(false);
 
   const handleChange = (e, ind) => {
     setError(false);
@@ -27,25 +35,30 @@ const AnswerInput = () => {
     form[ind + 1].focus();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
   
     const input = Object.values(inputs).reduce((str, i) => str + i, '');
 
     if (input === answer) {
+      setComplete(true);
+      await new Promise(resolve => setTimeout(resolve, 1000));
       navigate('/winner');
       return;
     }
 
     setError(true);
+    setInputs(initialInputs());
   };
 
   return (
     <form
-      className={(error) ? 'Error' : ''}
+      className={(error) ? 'Final Error' : 'Final'}
       onSubmit={handleSubmit}
       noValidate
     >
+      {(complete) && <Congrats />}
+
       {Object.values(inputs).map((i, ind) =>
         <input
           key={ind}

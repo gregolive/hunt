@@ -1,11 +1,279 @@
+$lightBlue: #53C8E4;
+$darkBlue: #0065B2;
+$black: #010306;
+$red: hsl(348, 100%, 61%);
+$green: hsl(141, 71%, 48%);
+
+body {
+  background: lighten($lightBlue, 36%);
+}
+
 .App {
   text-align: center;
+  height: 100vh;
+  padding: 2em;
+  
+  .Motion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
 
-  button {
+  .Details {
+    color: $black;
+  }
 
+  .Detective {
+    padding-top: 2em;
+    width: 80%;
   }
 
   h1 {
+    font-size: 2.5em;
+  }
 
+  p {
+    font-size: 1.6em;
+  }
+
+  button {
+    font-size: 2em;
+    font-weight: 700;
+    color: $black;
+    background: $lightBlue;
+    border: 1px solid $black;
+    border-radius: 0.1em;
+    padding: 0.1em 0.5em;
+    margin-bottom: 1em;
+    outline: none;
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1em;
+
+    input {
+      font-size: 3em;
+      font-weight: 700;
+      border: 2px solid $black;
+      border-radius: 0.1em;
+      line-height: 1;
+      width: 1em;
+      padding: 0.1em;
+      text-align: center;
+      transition: all 0.25s ease;
+
+      &:focus {
+        outline: none;
+        border-color: inherit;
+      }
+    }
+
+    button {
+      grid-column: 1 / -1;
+      justify-self: center;
+      margin-top: 0.75em;
+    }
+
+    &.Error {
+      input {
+        border-color: $red;
+        background: lighten($red, 36%);
+        color: darken($red, 40%);
+      }
+
+      button {
+        animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+        animation-iteration-count: 1;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+      }
+    }
+
+    &.Final {
+      grid-template-columns: repeat(7, 1fr);
+      column-gap: 0.5em;
+
+      input {
+        font-size: 2.5em;
+      }
+    }
+  }
+
+  .WelcomeButton {
+    font-size: 2.5em;
+    margin-bottom: 0.8em;
+  }
+
+  .Three {
+    padding-bottom: 2em;
+  }
+
+  .ScrambledWord {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding-bottom: 1em;
+
+    p {
+      margin: 0.5em 0;
+
+      &:first-of-type {
+        text-align: left;
+        font-weight: 700;
+      }
+
+      &:last-of-type {
+        text-align: right;
+      }
+    }
+
+    form {
+      display: flex;
+      gap: 0.25em;
+      grid-column: 1 / -1;
+
+      input {
+        font-size: 1.8em;
+        width: 0.9em;
+        padding: 0.1em 0;
+
+        &.Target {
+          border-color: $lightBlue;
+        }
+      }
+    }
+
+    &.Complete input {
+      background: lighten($green, 48%);
+      color: darken($green, 5%);
+
+      &.Target {
+        border-color: darken($green, 5%);
+      }
+    }
+  }
+
+  .Five img {
+    width: 100%;
+  }
+
+  .jigsaw-puzzle {
+    width: 20em;
+    position: relative;
+  }
+
+  table {
+    font-size: 1.4em;
+    width: 100%;
+    border-spacing: 0;
+    border: 1px solid $black;
+
+    thead {
+      width: 100%;
+
+      tr {
+        font-weight: 700;
+        background: $black;
+        color: white;
+      }
+    }
+
+    tbody {
+      width: 100%;
+    }
+
+    tr {
+      background: white;
+      color: $black;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(13, 1fr);
+    }
+  }
+
+  ol {
+    font-size: 1.5em;
+    margin: 1em 0;
+  }
+
+  .Seven p:last-of-type {
+    font-size: 2em;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin: 1em 0;
+  }
+
+  .Eight p:last-of-type {
+    font-size: 1.4em;
+    font-style: italic;
+  }
+
+  .Prize video {
+    width: 100%;
+  }
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.Congrats {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  grid-column: 1 / -1;
+
+  i {
+    position: absolute;
+    display: block;
+    left: 50%;
+    top: 0;
+    width: 5px;
+    height: 10px;
+    background: red;
+    opacity: 0;
+  }
+
+  @for $i from 1 through 50 {
+    i:nth-of-type(#{$i}) {
+      transform: translate3d(
+          random(190) - 100 + px,
+          random(200) - 100 + px,
+          0
+        )
+        rotate(random(360) + deg);
+      background: hsla(random(360), 100%, 50%, 1);
+      animation: bang 1000ms ease-out forwards;
+      opacity: 0;
+    }
+  }
+}
+
+@keyframes bang {
+  from {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
   }
 }
